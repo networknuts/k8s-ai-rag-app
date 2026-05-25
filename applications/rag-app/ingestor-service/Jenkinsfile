@@ -1,27 +1,40 @@
 pipeline {
+
     agent any
+
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
+
         stage('Checkout') {
+
             steps {
-                // Checkout the Git repository containing the Dockerfile
+
                 git branch: 'main',
-                  url: 'https://github.com/networknuts/k8s-ai-rag-app.git'
+                    url: 'https://github.com/networknuts/k8s-ai-rag-app.git'
             }
         }
 
         stage('Build and Push Docker Image') {
+
             steps {
+
                 script {
-                    // Make sure Docker is installed and configured properly on Jenkins
-                    def dockerImage = docker.build("docker.io/aryansr/rag-microservice-app_ingestor:${IMAGE_TAG}", "-f applications/rag-app/ingestor-service/Dockerfile .")
-                    docker.withRegistry('', 'dockerhub-credentials') {
-                        dockerImage.push("${IMAGE_TAG}")
+
+                    dir('applications/rag-app/ingestor-service') {
+
+                        def dockerImage = docker.build(
+                            "docker.io/aryansr/rag-microservice-app_ingestor:${IMAGE_TAG}",
+                            "."
+                        )
+
+                        docker.withRegistry('', 'dockerhub-credentials') {
+
+                            dockerImage.push("${IMAGE_TAG}")
+                        }
                     }
-                    // You can add any additional build arguments if needed
                 }
             }
         }
