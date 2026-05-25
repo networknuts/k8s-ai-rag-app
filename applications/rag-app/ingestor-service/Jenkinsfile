@@ -46,16 +46,16 @@ pipeline {
         }
 
         stage('Update Kubernetes YAML') {
-
+        
             steps {
-
+        
                 sh """
-
-                yq -i '
+        
+                yq -y -i '
                 .spec.template.spec.containers[0].image =
                 "${IMAGE_NAME}:${IMAGE_TAG}"
                 ' ${YAML_FILE}
-
+        
                 """
             }
         }
