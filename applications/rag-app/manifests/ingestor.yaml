@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ingestor
-          image: docker.io/aryansr/rag-microservice-app_ingestor:latest
+          image: docker.io/aryansr/rag-microservice-app_ingestor:9
           ports:
             - containerPort: 8000
           env:
@@ -38,3 +38,7 @@ spec:
   ports:
     - port: 8000
       targetPort: 8000
+  template:
+    spec:
+      containers:
+        - image: docker.io/aryansr/rag-microservice-app_ingestor:9
