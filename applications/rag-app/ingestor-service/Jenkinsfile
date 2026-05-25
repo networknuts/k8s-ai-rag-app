@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Make sure Docker is installed and configured properly on Jenkins
-                    def dockerImage = docker.build("docker.io/aryansr/rag-microservice-app_ingestor:${IMAGE_TAG}", "-f ingestor-service/Dockerfile .")
+                    def dockerImage = docker.build("docker.io/aryansr/rag-microservice-app_ingestor:${IMAGE_TAG}", "-f applications/rag-app/ingestor-service/Dockerfile .")
                     docker.withRegistry('', 'dockerhub-credentials') {
                         dockerImage.push("${IMAGE_TAG}")
                     }
