@@ -25,10 +25,8 @@ metadata:
   name: rag-ui
   namespace: rag-app
 spec:
-  type: NodePort
   selector:
     app: rag-ui
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30080
