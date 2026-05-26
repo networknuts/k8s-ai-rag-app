@@ -25,6 +25,7 @@ metadata:
   name: rag-ui
   namespace: rag-app
 spec:
+  type: LoadBalancer
   selector:
     app: rag-ui
   ports:
